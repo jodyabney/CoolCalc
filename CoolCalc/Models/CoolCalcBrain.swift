@@ -8,35 +8,70 @@
 
 import Foundation
 
-enum ValidBinaryOperation: String {
+enum BinaryOperation: String {
     case addition = "+"
     case subtraction = "-"
     case multiplication = "x"
     case division = "/"
 }
 
-enum ValidUnaryOperation: String {
+enum UnaryOperation: String {
     case negation = "+/-"
     case percentage = "%"
 }
 
+enum CalcMode: String {
+    case firstOrClear
+    case newCalcPriorAnswer
+    case inprogressCalc
+    case chainCalc
+}
+
 struct CoolCalcBrain {
-    
-    var stack: [Double] = []
     
     var registerA: Double?
     var registerB: Double?
     var answer: Double?
     
-    //var operandEntryInProgress: Bool = false
-    //var firstOperandEntered: Bool = false
-    //var operationEntered: Bool = false
-    var binaryOperation: ValidBinaryOperation?
+    var binaryOperation: BinaryOperation?
     
-    mutating func performBinaryCalc(forOperation operation: ValidBinaryOperation) -> Double? {
+    var calcMode: CalcMode? {
+        get {
+            /*
+             Calc Mode                   RegisterA   RegisterB   Answer      binaryOperation
+             First Calc / after Clear    Nil         Nil         Nil         nil
+             New Calc use prior answer   Nil         Nil         Not Nil     nil
+             In progress                 Not Nil     Nil         N/A         Not nil
+             Chain Calc                  Not Nil     Not Nil     N/A         Not nil
+             */
+            
+            var mode: CalcMode?
+            
+            // First Calc / After Calc
+            if registerA == nil && registerB == nil && answer == nil && binaryOperation == nil {
+                mode = .firstOrClear
+                
+                // New Calc Using Prior Answer
+            } else if registerA == nil && registerB == nil && answer != nil && binaryOperation == nil {
+                mode = .newCalcPriorAnswer
+                
+                // Inprogress Calc
+            } else if registerA != nil && registerB == nil && binaryOperation != nil {
+                mode = .inprogressCalc
+                
+                // Chain calc
+            } else if registerA != nil && registerB != nil && binaryOperation != nil {
+                mode = .chainCalc
+            }
+            
+            return mode
+        }
+    }
+    
+    mutating func performBinaryCalc(forOperation operation: BinaryOperation) -> Double? {
         
         var result = 0.0
-
+        
         let a = registerA!
         let b = registerB!
         
@@ -54,27 +89,25 @@ struct CoolCalcBrain {
             result = a / b
         }
         answer = result
-        stack.append(answer!)
         registerA = nil
         registerB = nil
         binaryOperation = nil
         return result
     }
     
-    mutating func performUnaryCalc(forOperation operation: ValidUnaryOperation) -> Double? {
+    func performUnaryCalc(forOperation operation: UnaryOperation,
+                          usingDisplayValue displayValue: Double) -> Double {
         
-        var result = 0.0
-        let a = registerA!
+        guard displayValue != 0.0 else {
+            return 0.0
+        }
         
         switch operation {
         case .negation:
-            result = -1.0 * a
+            return displayValue * -1.0
         case .percentage:
-            result = a / 100.0
+            return displayValue / 100.0
         }
-        answer = result
-        registerA = nil
-        return result
     }
     
     mutating func performClear() -> Double {
