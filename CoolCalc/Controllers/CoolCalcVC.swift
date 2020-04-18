@@ -38,7 +38,8 @@ class CoolCalcVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        calcDisplayLabel.text = "0"
     }
     
     @IBAction func numberPressed(_ sender: UIButton) {
@@ -62,8 +63,8 @@ class CoolCalcVC: UIViewController {
          Chain calc                  Not Nil     Not Nil     N/A         Not nil
          */
         
-        print("start binary:")
-        printStatus()
+//        print("start binary:")
+//        printStatus()
         
         // First calc (or after Clear is pressed)
         if coolCalcBrain.calcMode == CalcMode.firstOrClear {
@@ -121,8 +122,8 @@ class CoolCalcVC: UIViewController {
             updateUI(sender)
         }
         
-        print("end binary")
-        printStatus()
+//        print("end binary")
+//        printStatus()
     }
     
     // handle highlighting the active binaryOperation button
@@ -156,21 +157,21 @@ class CoolCalcVC: UIViewController {
         }
     }
     
-    func printStatus() {
-        print("registerLabel: \(String(describing: calcDisplayLabel.text))")
-        print("RegisterA: \(String(describing: coolCalcBrain.registerA))")
-        print("RegisterB: \(String(describing: coolCalcBrain.registerB))")
-        print("Answer: \(String(describing: coolCalcBrain.answer))")
-        print("BinaryOperation: \(String(describing: coolCalcBrain.binaryOperation))")
-        print("currentOperationButton: \(String(describing: currentOperationButton?.currentTitle))")
-        print("CalcMode: \(String(describing: coolCalcBrain.calcMode))")
-        print()
-    }
+//    func printStatus() {
+//        print("registerLabel: \(String(describing: calcDisplayLabel.text))")
+//        print("RegisterA: \(String(describing: coolCalcBrain.registerA))")
+//        print("RegisterB: \(String(describing: coolCalcBrain.registerB))")
+//        print("Answer: \(String(describing: coolCalcBrain.answer))")
+//        print("BinaryOperation: \(String(describing: coolCalcBrain.binaryOperation))")
+//        print("currentOperationButton: \(String(describing: currentOperationButton?.currentTitle))")
+//        print("CalcMode: \(String(describing: coolCalcBrain.calcMode))")
+//        print()
+//    }
     
     @IBAction func equalPressed(_ sender: UIButton) {
         
-        print("begin equal")
-        printStatus()
+//        print("begin equal")
+//        printStatus()
         
         guard coolCalcBrain.binaryOperation != nil else {
             return
@@ -195,8 +196,8 @@ class CoolCalcVC: UIViewController {
         updateUI(currentOperationButton)
         currentOperationButton = nil
         
-        print("end equal")
-        printStatus()
+//        print("end equal")
+//        printStatus()
     }
     
     
@@ -215,8 +216,8 @@ class CoolCalcVC: UIViewController {
         coolCalcBrain.answer = nil
         coolCalcBrain.binaryOperation = nil
         
-        print("after clear")
-        printStatus()
+//        print("after clear")
+//        printStatus()
         
     }
     
@@ -232,8 +233,8 @@ class CoolCalcVC: UIViewController {
     
     @IBAction func unaryPressed(_ sender: UIButton) {
         
-        print("start percent:")
-        printStatus()
+//        print("start percent:")
+//        printStatus()
         
         let unaryOperation = UnaryOperation(rawValue: sender.currentTitle!)!
         
@@ -258,8 +259,8 @@ class CoolCalcVC: UIViewController {
             return
         }
         
-        print("end percent")
-        printStatus()
+//        print("end percent")
+//        printStatus()
     }
     
 }
