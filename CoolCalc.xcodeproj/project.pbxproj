@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B145E9D8244948350091DBD8 /* CoolCalcVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145E9D7244948350091DBD8 /* CoolCalcVC.swift */; };
+		B145E9DA244A95260091DBD8 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145E9D9244A95260091DBD8 /* CircularButton.swift */; };
 		B1D4568024471B7D00431A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4567F24471B7D00431A47 /* AppDelegate.swift */; };
 		B1D4568224471B7D00431A47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4568124471B7D00431A47 /* SceneDelegate.swift */; };
 		B1D4568724471B7D00431A47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1D4568524471B7D00431A47 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		B145E9D7244948350091DBD8 /* CoolCalcVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolCalcVC.swift; sourceTree = "<group>"; };
+		B145E9D9244A95260091DBD8 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		B1D4567C24471B7D00431A47 /* CoolCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D4567F24471B7D00431A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1D4568124471B7D00431A47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			children = (
 				B1D4568524471B7D00431A47 /* Main.storyboard */,
 				B1D4568A24471B7E00431A47 /* LaunchScreen.storyboard */,
+				B145E9D9244A95260091DBD8 /* CircularButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				B145E9D8244948350091DBD8 /* CoolCalcVC.swift in Sources */,
 				B1D456972447314D00431A47 /* CoolCalcBrain.swift in Sources */,
 				B1D4568224471B7D00431A47 /* SceneDelegate.swift in Sources */,
+				B145E9DA244A95260091DBD8 /* CircularButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
