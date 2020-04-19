@@ -15,7 +15,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="N0j-AN-Z0x" userLabel="Vertical Stack">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Space reserved for scientific functions in future version" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtC-Kt-H2B">
+                                <rect key="frame" x="69" y="86.666666666666671" width="125" height="201.66666666666663"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="0hC-BR-gla">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="125" id="G1g-R6-bMu">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="160"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.60743945840000002" green="0.11061530560000001" blue="0.12151921540000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                                </variation>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="N0j-AN-Z0x" userLabel="Stack">
                                 <rect key="frame" x="20" y="44" width="335" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="b1G-I3-Yl0" userLabel="Display Row">
@@ -318,17 +336,40 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="NtC-Kt-H2B" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="3kU-G1-nxz"/>
                             <constraint firstItem="N0j-AN-Z0x" firstAttribute="top" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8uL-LF-VZz"/>
                             <constraint firstItem="N0j-AN-Z0x" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8yO-E4-Bvr"/>
+                            <constraint firstItem="NtC-Kt-H2B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="ehy-uL-vcD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="N0j-AN-Z0x" secondAttribute="bottom" id="hnK-jC-YOT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N0j-AN-Z0x" secondAttribute="trailing" constant="20" id="v1s-mq-8tf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="NtC-Kt-H2B"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="NtC-Kt-H2B"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="NtC-Kt-H2B"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="NtC-Kt-H2B"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="additionButton" destination="Auc-LB-T91" id="6Sh-oC-5rD"/>
                         <outlet property="calcDisplayLabel" destination="Dry-1V-GeN" id="eP5-pu-oNl"/>
                         <outlet property="calcHistoryLabel" destination="dk7-NX-nWn" id="3LG-tw-kGz"/>
+                        <outlet property="decimalButton" destination="iRy-PF-O4e" id="SCz-5b-T1v"/>
                         <outlet property="divisionButton" destination="aXN-Ya-4aG" id="EeQ-bU-Vfu"/>
                         <outlet property="multplicationButton" destination="bil-Oc-8r6" id="rcQ-pm-bwt"/>
                         <outlet property="subtractionButton" destination="Boe-HQ-APE" id="49q-dH-fg7"/>
@@ -336,7 +377,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.40000000000001" y="137.4384236453202"/>
+            <point key="canvasLocation" x="130.04926108374386" y="136.80000000000001"/>
         </scene>
     </scenes>
 </document>

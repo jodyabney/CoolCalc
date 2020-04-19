@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable
+@IBDesignable // make displayable in Interface Builder
 class RoundedButton: UIButton {
     
     override func prepareForInterfaceBuilder() {
@@ -26,7 +26,7 @@ class RoundedButton: UIButton {
         layer.frame.size.height = 40.0
         layer.frame.size.width = 40.0
         
-        // round the corners
+        // round the corners and clip
         layer.cornerRadius = frame.size.width / 2.0
         clipsToBounds = true
 

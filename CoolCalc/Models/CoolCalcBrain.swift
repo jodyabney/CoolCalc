@@ -8,24 +8,6 @@
 
 import Foundation
 
-enum BinaryOperation: String {
-    case addition = "+"
-    case subtraction = "-"
-    case multiplication = "x"
-    case division = "/"
-}
-
-enum UnaryOperation: String {
-    case negation = "+/-"
-    case percentage = "%"
-}
-
-enum CalcMode: String {
-    case firstOrClear
-    case newCalcPriorAnswer
-    case inprogressCalc
-    case chainCalc
-}
 
 struct CoolCalcBrain {
     

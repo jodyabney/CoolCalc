@@ -9,11 +9,24 @@
 import UIKit
 
 
-//MARK: - TODO: Numberformatter to limit number of digits displayed
-
 class CoolCalcVC: UIViewController {
     
+    //MARK: - Properties
+    
     var coolCalcBrain = CoolCalcBrain()
+    
+    let decimalCharacter = Locale.current.decimalSeparator
+    
+    let numberFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.roundingMode = .halfUp
+        nf.minimumFractionDigits = 0
+        nf.maximumFractionDigits = 4
+        nf.paddingPosition = .beforePrefix
+        nf.paddingCharacter = "0"
+        return nf
+    }()
     
     var decimalKeyPressed = false
     var operandEntryInProgress = false
@@ -30,6 +43,11 @@ class CoolCalcVC: UIViewController {
         }
     }
     
+    //MARK: - IBOutlets
+    
+    // Set up a decimal button to enable localization
+    @IBOutlet weak var decimalButton: RoundedButton!
+    
     // Set up outlets for binary operation buttons
     @IBOutlet weak var divisionButton: UIButton!
     @IBOutlet weak var multplicationButton: UIButton!
@@ -40,13 +58,21 @@ class CoolCalcVC: UIViewController {
     @IBOutlet weak var calcDisplayLabel: UILabel!
     @IBOutlet weak var calcHistoryLabel: UILabel!
     
+    //MARK: - Setup
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set intial display
         calcDisplayLabel.text = "0"
+        // set initial history
         calcHistoryLabel.text = " "
-
+        
+        // Set decimal chracter on the decimal button
+        decimalButton.titleLabel?.text = decimalCharacter
     }
+    
+    //MARK: - IBActions
     
     @IBAction func numberPressed(_ sender: UIButton) {
         
@@ -55,24 +81,13 @@ class CoolCalcVC: UIViewController {
             operandEntryInProgress = true
             calcDisplayLabel.text! = sender.currentTitle!
             calcHistoryLabel.text! += " " + sender.currentTitle!
-        } else {
+        } else { // append if not a new operand
             calcDisplayLabel.text! += sender.currentTitle!
             calcHistoryLabel.text! += sender.currentTitle!
         }
     }
     
     @IBAction func binaryOperationPressed(_ sender: UIButton) {
-        
-        /*
-         Calc Mode                   RegisterA   RegisterB   Answer      currentBinaryOperation
-         First Calc / after Clear    Nil         Nil         Nil         nil
-         New Calc use prior answer   Nil         Nil         Not Nil     nil
-         In progress                 Not Nil     Nil         N/A         Not nil
-         Chain calc                  Not Nil     Not Nil     N/A         Not nil
-         */
-        
-//        print("start binary:")
-//        printStatus()
         
         // First calc (or after Clear is pressed)
         if coolCalcBrain.calcMode == CalcMode.firstOrClear {
@@ -128,13 +143,117 @@ class CoolCalcVC: UIViewController {
             currentOperationButton = sender
             updateUI(sender)
         }
-        
-//        print("end binary")
-//        printStatus()
     }
     
+    
+    @IBAction func equalPressed(_ sender: UIButton) {
+        
+        // ensure for a binary operation is set
+        guard coolCalcBrain.binaryOperation != nil else {
+            return
+        }
+        
+        // ensure a valid operand is in the calc display
+        guard let operand = Double(calcDisplayLabel.text!) else {
+            calcDisplayLabel.text = "Error: invalid number"
+            calcHistoryLabel.text! += " Error"
+            return
+        }
+        
+        // add the operand to the registerB
+        if operandEntryInProgress {
+            coolCalcBrain.registerB = operand
+            operandEntryInProgress = false
+        }
+        
+        // perform the calculation
+        performCalc()
+        
+        // append to the history
+        calcHistoryLabel.text! += " " + sender.currentTitle!
+        // reset first operand indicator
+        firstOperandEntered = false
+        // update the UI
+        updateUI(currentOperationButton)
+        // reset the VC
+        resetVC()
+        
+    }
+    
+    
+    @IBAction func clearPressed(_ sender: UIButton) {
+        
+        // clear the calc display
+        calcDisplayLabel.text = coolCalcBrain.performClear()
+        // reset the VC
+        resetVC()
+        // clear the history
+        calcHistoryLabel.text = " "
+        // reset the calc brain
+        coolCalcBrain.reset()
+        
+        // reset binary buttons
+        updateUI(divisionButton)
+        updateUI(multplicationButton)
+        updateUI(subtractionButton)
+        updateUI(additionButton)
+    }
+    
+    
+    @IBAction func decimalPressed(_ sender: UIButton) {
+        
+        // if decimalKey hasn't been pressed before. Otherwise, ignore this key press.
+        if !decimalKeyPressed {
+            operandEntryInProgress = true
+            decimalKeyPressed = true
+            calcDisplayLabel.text! += decimalCharacter!
+            calcHistoryLabel.text! += decimalCharacter!
+        }
+    }
+    
+    @IBAction func unaryPressed(_ sender: UIButton) {
+        
+        // set theunary operation based on which key was pressed
+        let unaryOperation = UnaryOperation(rawValue: sender.currentTitle!)!
+        
+        // ensure a valid operand is in the calc display
+        if let operand = Double(calcDisplayLabel.text!) {
+            
+            // ignore if the calc display is zero
+            if operand == 0 {
+                return
+            } else {
+                // append the keypress
+                calcHistoryLabel.text! += " " + sender.currentTitle!
+                // perform the unary calc
+                let result = coolCalcBrain.performUnaryCalc(forOperation: unaryOperation,
+                                                            usingDisplayValue: operand)
+                // update the calc display
+                calcDisplayLabel.text = numberFormatter.string(from: NSNumber(value: result))
+            }
+            
+            // calc display doesn't contain a valid operand
+        } else {
+            // report the error
+            calcDisplayLabel.text = "Error: invalid operand"
+            // reset the calc brain
+            coolCalcBrain.reset()
+            // reset the VC
+            resetVC()
+            
+            // reset binary buttons
+            updateUI(divisionButton)
+            updateUI(multplicationButton)
+            updateUI(subtractionButton)
+            updateUI(additionButton)
+        }
+    }
+    
+    
+    //MARK: - Helpers
+    
     // handle highlighting the active binaryOperation button
-    func updateUI(_ sender: UIButton?) {
+    private func updateUI(_ sender: UIButton?) {
         if let sender = sender {
             if calcInProgress {
                 sender.backgroundColor = .systemBlue
@@ -146,7 +265,7 @@ class CoolCalcVC: UIViewController {
         }
     }
     
-    func performCalc() {
+    private func performCalc() {
         
         // perform the calculation
         guard coolCalcBrain.registerA != nil && coolCalcBrain.registerB != nil else {
@@ -157,7 +276,7 @@ class CoolCalcVC: UIViewController {
         
         if let result = coolCalcBrain.performBinaryCalc(forOperation: coolCalcBrain.binaryOperation!) {
             // update the calculator display
-            calcDisplayLabel.text = String(result)
+            calcDisplayLabel.text = numberFormatter.string(from: NSNumber(value: result))
             
         } else {
             
@@ -166,121 +285,10 @@ class CoolCalcVC: UIViewController {
         }
     }
     
-//    func printStatus() {
-//        print("registerLabel: \(String(describing: calcDisplayLabel.text))")
-//        print("RegisterA: \(String(describing: coolCalcBrain.registerA))")
-//        print("RegisterB: \(String(describing: coolCalcBrain.registerB))")
-//        print("Answer: \(String(describing: coolCalcBrain.answer))")
-//        print("BinaryOperation: \(String(describing: coolCalcBrain.binaryOperation))")
-//        print("currentOperationButton: \(String(describing: currentOperationButton?.currentTitle))")
-//        print("CalcMode: \(String(describing: coolCalcBrain.calcMode))")
-//        print()
-//    }
-    
-    @IBAction func equalPressed(_ sender: UIButton) {
-        
-//        print("begin equal")
-//        printStatus()
-        
-        guard coolCalcBrain.binaryOperation != nil else {
-            return
-        }
-        
-        guard let operand = Double(calcDisplayLabel.text!) else {
-            calcDisplayLabel.text = "Error: invalid number"
-            calcHistoryLabel.text! += " Error"
-            return
-        }
-        
-        // add the operand to the stack
-        if operandEntryInProgress {
-            coolCalcBrain.registerB = operand
-            operandEntryInProgress = false
-        }
-        
-        performCalc()
-        
-        calcHistoryLabel.text! += " " + sender.currentTitle!
-        
-        firstOperandEntered = false
-        updateUI(currentOperationButton)
-        resetVC()
-        
-//        print("end equal")
-//        printStatus()
-    }
-    
-    
-    @IBAction func clearPressed(_ sender: UIButton) {
-        
-        calcDisplayLabel.text = coolCalcBrain.performClear()
-        resetVC()
-        calcHistoryLabel.text = " "
-        coolCalcBrain.reset()
-
-        // reset binary buttons
-        updateUI(divisionButton)
-        updateUI(multplicationButton)
-        updateUI(subtractionButton)
-        updateUI(additionButton)
-        
-//        print("after clear")
-//        printStatus()
-        
-    }
-    
-    
-    @IBAction func decimalPressed(_ sender: UIButton) {
-        
-        if !decimalKeyPressed {
-            operandEntryInProgress = true
-            decimalKeyPressed = true
-            calcDisplayLabel.text! += "."
-            calcHistoryLabel.text! += "."
-        }
-    }
-    
-    @IBAction func unaryPressed(_ sender: UIButton) {
-        
-//        print("start percent:")
-//        printStatus()
-        
-        let unaryOperation = UnaryOperation(rawValue: sender.currentTitle!)!
-        
-        if let operand = Double(calcDisplayLabel.text!) {
-            
-            if operand == 0 {
-                return
-            }
-            
-            calcHistoryLabel.text! += " " + sender.currentTitle!
-            
-            let result = coolCalcBrain.performUnaryCalc(forOperation: unaryOperation,
-                                                        usingDisplayValue: operand)
-            calcDisplayLabel.text = String(result)
-            
-        } else {
-            calcDisplayLabel.text = "Error: invalid operand"
-            coolCalcBrain.reset()
-            resetVC()
-            
-            // reset binary buttons
-            updateUI(divisionButton)
-            updateUI(multplicationButton)
-            updateUI(subtractionButton)
-            updateUI(additionButton)
-            return
-        }
-        
-//        print("end percent")
-//        printStatus()
-    }
-    
-    func resetVC() {
+    private func resetVC() {
         operandEntryInProgress = false
         decimalKeyPressed = false
         currentOperationButton = nil
     }
-    
 }
 
