@@ -110,12 +110,17 @@ struct CoolCalcBrain {
         }
     }
     
-    mutating func performClear() -> Double {
+    mutating func performClear() -> String {
         
+        reset()
+        return "0"
+    }
+    
+    mutating func reset() {
         registerA = nil
         registerB = nil
         answer = nil
         binaryOperation = nil
-        return 0.0
     }
+    
 }

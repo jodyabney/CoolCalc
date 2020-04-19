@@ -22,13 +22,14 @@ class RoundedButton: UIButton {
     
     func customizeView() {
 
+        // set 1:1 aspect ratio and size
         layer.frame.size.height = 40.0
         layer.frame.size.width = 40.0
         
+        // round the corners
         layer.cornerRadius = frame.size.width / 2.0
-        print("cornerradius: \(layer.cornerRadius)")
         clipsToBounds = true
-        //layer.masksToBounds = true
+
     }
     
 }

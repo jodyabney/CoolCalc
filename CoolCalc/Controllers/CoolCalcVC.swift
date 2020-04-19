@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+//MARK: - TODO: Numberformatter to limit number of digits displayed
+
 class CoolCalcVC: UIViewController {
     
     var coolCalcBrain = CoolCalcBrain()
@@ -33,13 +36,16 @@ class CoolCalcVC: UIViewController {
     @IBOutlet weak var subtractionButton: UIButton!
     @IBOutlet weak var additionButton: UIButton!
     
-    // Set up outlet for calculator Display
+    // Set up outlets for calculator Display
     @IBOutlet weak var calcDisplayLabel: UILabel!
+    @IBOutlet weak var calcHistoryLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         calcDisplayLabel.text = "0"
+        calcHistoryLabel.text = " "
+
     }
     
     @IBAction func numberPressed(_ sender: UIButton) {
@@ -48,8 +54,10 @@ class CoolCalcVC: UIViewController {
         if !operandEntryInProgress {
             operandEntryInProgress = true
             calcDisplayLabel.text! = sender.currentTitle!
+            calcHistoryLabel.text! += " " + sender.currentTitle!
         } else {
             calcDisplayLabel.text! += sender.currentTitle!
+            calcHistoryLabel.text! += sender.currentTitle!
         }
     }
     
@@ -72,17 +80,16 @@ class CoolCalcVC: UIViewController {
             if let operand = Double(calcDisplayLabel.text!) {
                 coolCalcBrain.registerA = operand
                 coolCalcBrain.binaryOperation = BinaryOperation(rawValue: sender.currentTitle!)
-                decimalKeyPressed = false
-                operandEntryInProgress = false
+                resetVC()
                 currentOperationButton = sender
                 updateUI(currentOperationButton)
+                calcHistoryLabel.text! += " " + sender.currentTitle!
                 
             } else {
                 coolCalcBrain.binaryOperation = nil
-                decimalKeyPressed = false
-                operandEntryInProgress = false
                 calcDisplayLabel.text = "Error: invalid number"
-                currentOperationButton = nil
+                calcHistoryLabel.text = ""
+                resetVC()
                 return
             }
             
@@ -91,11 +98,11 @@ class CoolCalcVC: UIViewController {
             
             coolCalcBrain.binaryOperation = BinaryOperation(rawValue: sender.currentTitle!)
             coolCalcBrain.registerA = coolCalcBrain.answer!
-            operandEntryInProgress = false
-            decimalKeyPressed = false
             updateUI(currentOperationButton)
+            resetVC()
             currentOperationButton = sender
             updateUI(currentOperationButton)
+            calcHistoryLabel.text! += " " + sender.currentTitle!
             
             // Inprogress calc
         } else if coolCalcBrain.calcMode == CalcMode.inprogressCalc {
@@ -106,18 +113,18 @@ class CoolCalcVC: UIViewController {
                 updateUI(currentOperationButton)
                 coolCalcBrain.registerA = coolCalcBrain.answer
                 coolCalcBrain.binaryOperation = BinaryOperation(rawValue: sender.currentTitle!)
-                operandEntryInProgress = false
-                decimalKeyPressed = false
                 updateUI(sender)
+                resetVC()
                 currentOperationButton = sender
+                calcHistoryLabel.text! += " " + sender.currentTitle!
             }
             // Chain calc
         } else if coolCalcBrain.calcMode == CalcMode.chainCalc {
             
             updateUI(currentOperationButton)
             performCalc()
-            operandEntryInProgress = false
-            decimalKeyPressed = false
+            calcHistoryLabel.text! += " " + sender.currentTitle!
+            resetVC()
             currentOperationButton = sender
             updateUI(sender)
         }
@@ -130,11 +137,11 @@ class CoolCalcVC: UIViewController {
     func updateUI(_ sender: UIButton?) {
         if let sender = sender {
             if calcInProgress {
-                sender.backgroundColor = .blue
+                sender.backgroundColor = .systemBlue
                 sender.titleLabel?.textColor = .white
             } else {
                 sender.backgroundColor = .systemGray
-                sender.titleLabel?.textColor = .black
+                sender.titleLabel?.textColor = .label
             }
         }
     }
@@ -144,6 +151,7 @@ class CoolCalcVC: UIViewController {
         // perform the calculation
         guard coolCalcBrain.registerA != nil && coolCalcBrain.registerB != nil else {
             calcDisplayLabel.text = "Error: insufficient operands"
+            calcHistoryLabel.text! += " Error"
             return
         }
         
@@ -154,6 +162,7 @@ class CoolCalcVC: UIViewController {
         } else {
             
             calcDisplayLabel.text = "Error: invalid calc"
+            calcHistoryLabel.text! += " Error"
         }
     }
     
@@ -179,6 +188,7 @@ class CoolCalcVC: UIViewController {
         
         guard let operand = Double(calcDisplayLabel.text!) else {
             calcDisplayLabel.text = "Error: invalid number"
+            calcHistoryLabel.text! += " Error"
             return
         }
         
@@ -190,11 +200,11 @@ class CoolCalcVC: UIViewController {
         
         performCalc()
         
-        decimalKeyPressed = false
+        calcHistoryLabel.text! += " " + sender.currentTitle!
+        
         firstOperandEntered = false
-        operandEntryInProgress = false
         updateUI(currentOperationButton)
-        currentOperationButton = nil
+        resetVC()
         
 //        print("end equal")
 //        printStatus()
@@ -203,18 +213,16 @@ class CoolCalcVC: UIViewController {
     
     @IBAction func clearPressed(_ sender: UIButton) {
         
-        calcDisplayLabel.text = String(Int(coolCalcBrain.performClear()))
-        operandEntryInProgress = false
-        decimalKeyPressed = false
+        calcDisplayLabel.text = coolCalcBrain.performClear()
+        resetVC()
+        calcHistoryLabel.text = " "
+        coolCalcBrain.reset()
+
+        // reset binary buttons
         updateUI(divisionButton)
         updateUI(multplicationButton)
         updateUI(subtractionButton)
         updateUI(additionButton)
-        currentOperationButton = nil
-        coolCalcBrain.registerA = nil
-        coolCalcBrain.registerB = nil
-        coolCalcBrain.answer = nil
-        coolCalcBrain.binaryOperation = nil
         
 //        print("after clear")
 //        printStatus()
@@ -228,6 +236,7 @@ class CoolCalcVC: UIViewController {
             operandEntryInProgress = true
             decimalKeyPressed = true
             calcDisplayLabel.text! += "."
+            calcHistoryLabel.text! += "."
         }
     }
     
@@ -240,27 +249,37 @@ class CoolCalcVC: UIViewController {
         
         if let operand = Double(calcDisplayLabel.text!) {
             
+            if operand == 0 {
+                return
+            }
+            
+            calcHistoryLabel.text! += " " + sender.currentTitle!
+            
             let result = coolCalcBrain.performUnaryCalc(forOperation: unaryOperation,
                                                         usingDisplayValue: operand)
             calcDisplayLabel.text = String(result)
             
         } else {
             calcDisplayLabel.text = "Error: invalid operand"
-            coolCalcBrain.answer = nil
-            coolCalcBrain.registerA = nil
-            coolCalcBrain.registerB = nil
-            operandEntryInProgress = false
-            decimalKeyPressed = false
+            coolCalcBrain.reset()
+            resetVC()
+            
+            // reset binary buttons
             updateUI(divisionButton)
             updateUI(multplicationButton)
             updateUI(subtractionButton)
             updateUI(additionButton)
-            currentOperationButton = nil
             return
         }
         
 //        print("end percent")
 //        printStatus()
+    }
+    
+    func resetVC() {
+        operandEntryInProgress = false
+        decimalKeyPressed = false
+        currentOperationButton = nil
     }
     
 }
