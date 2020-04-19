@@ -89,6 +89,8 @@ class CoolCalcVC: UIViewController {
     
     @IBAction func binaryOperationPressed(_ sender: UIButton) {
         
+        print(coolCalcBrain.calcMode!)
+        
         // First calc (or after Clear is pressed)
         if coolCalcBrain.calcMode == CalcMode.firstOrClear {
             
@@ -143,6 +145,8 @@ class CoolCalcVC: UIViewController {
             currentOperationButton = sender
             updateUI(sender)
         }
+        
+        print(coolCalcBrain.calcMode!)
     }
     
     
@@ -202,9 +206,16 @@ class CoolCalcVC: UIViewController {
     
     @IBAction func decimalPressed(_ sender: UIButton) {
         
-        // if decimalKey hasn't been pressed before. Otherwise, ignore this key press.
-        if !decimalKeyPressed {
+        // if decimalKey hasn't been pressed before and starting a new operand entry
+        if !decimalKeyPressed && operandEntryInProgress == false {
             operandEntryInProgress = true
+            decimalKeyPressed = true
+            calcDisplayLabel.text! = "0" + decimalCharacter!
+            calcHistoryLabel.text! += " 0" + decimalCharacter!
+            
+            // if decimalKey hasn't been pressed before and currently entering an operand
+            // otherwise, ignore decimalKey press
+        } else if !decimalKeyPressed && operandEntryInProgress == true {
             decimalKeyPressed = true
             calcDisplayLabel.text! += decimalCharacter!
             calcHistoryLabel.text! += decimalCharacter!
