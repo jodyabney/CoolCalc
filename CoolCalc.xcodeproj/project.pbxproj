@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B145E9D8244948350091DBD8 /* CoolCalcVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145E9D7244948350091DBD8 /* CoolCalcVC.swift */; };
 		B145E9DA244A95260091DBD8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145E9D9244A95260091DBD8 /* RoundedButton.swift */; };
+		B1BD895C24AAB327002B6B0A /* CoolCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BD895B24AAB327002B6B0A /* CoolCalcTests.swift */; };
 		B1D4568024471B7D00431A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4567F24471B7D00431A47 /* AppDelegate.swift */; };
 		B1D4568224471B7D00431A47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4568124471B7D00431A47 /* SceneDelegate.swift */; };
 		B1D4568724471B7D00431A47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1D4568524471B7D00431A47 /* Main.storyboard */; };
@@ -20,9 +21,22 @@
 		B1EF8C4B244C8CE800DB7C6D /* CalcMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF8C4A244C8CE800DB7C6D /* CalcMode.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B1BD895E24AAB327002B6B0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1D4567424471B7D00431A47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1D4567B24471B7D00431A47;
+			remoteInfo = CoolCalc;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		B145E9D7244948350091DBD8 /* CoolCalcVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolCalcVC.swift; sourceTree = "<group>"; };
 		B145E9D9244A95260091DBD8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		B1BD895924AAB327002B6B0A /* CoolCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoolCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1BD895B24AAB327002B6B0A /* CoolCalcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolCalcTests.swift; sourceTree = "<group>"; };
+		B1BD895D24AAB327002B6B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1D4567C24471B7D00431A47 /* CoolCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D4567F24471B7D00431A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1D4568124471B7D00431A47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +51,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B1BD895624AAB327002B6B0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B1D4567924471B7D00431A47 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,10 +68,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B1BD895A24AAB327002B6B0A /* CoolCalcTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1BD895B24AAB327002B6B0A /* CoolCalcTests.swift */,
+				B1BD895D24AAB327002B6B0A /* Info.plist */,
+			);
+			path = CoolCalcTests;
+			sourceTree = "<group>";
+		};
 		B1D4567324471B7D00431A47 = {
 			isa = PBXGroup;
 			children = (
 				B1D4567E24471B7D00431A47 /* CoolCalc */,
+				B1BD895A24AAB327002B6B0A /* CoolCalcTests */,
 				B1D4567D24471B7D00431A47 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D4567C24471B7D00431A47 /* CoolCalc.app */,
+				B1BD895924AAB327002B6B0A /* CoolCalcTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +141,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B1BD895824AAB327002B6B0A /* CoolCalcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1BD896224AAB327002B6B0A /* Build configuration list for PBXNativeTarget "CoolCalcTests" */;
+			buildPhases = (
+				B1BD895524AAB327002B6B0A /* Sources */,
+				B1BD895624AAB327002B6B0A /* Frameworks */,
+				B1BD895724AAB327002B6B0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1BD895F24AAB327002B6B0A /* PBXTargetDependency */,
+			);
+			name = CoolCalcTests;
+			productName = CoolCalcTests;
+			productReference = B1BD895924AAB327002B6B0A /* CoolCalcTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B1D4567B24471B7D00431A47 /* CoolCalc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B1D4569024471B7E00431A47 /* Build configuration list for PBXNativeTarget "CoolCalc" */;
@@ -132,10 +182,14 @@
 		B1D4567424471B7D00431A47 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = AbneyAnalytics;
 				TargetAttributes = {
+					B1BD895824AAB327002B6B0A = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = B1D4567B24471B7D00431A47;
+					};
 					B1D4567B24471B7D00431A47 = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -155,11 +209,19 @@
 			projectRoot = "";
 			targets = (
 				B1D4567B24471B7D00431A47 /* CoolCalc */,
+				B1BD895824AAB327002B6B0A /* CoolCalcTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B1BD895724AAB327002B6B0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B1D4567A24471B7D00431A47 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -173,6 +235,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B1BD895524AAB327002B6B0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1BD895C24AAB327002B6B0A /* CoolCalcTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B1D4567824471B7D00431A47 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -189,6 +259,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B1BD895F24AAB327002B6B0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1D4567B24471B7D00431A47 /* CoolCalc */;
+			targetProxy = B1BD895E24AAB327002B6B0A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B1D4568524471B7D00431A47 /* Main.storyboard */ = {
@@ -210,6 +288,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B1BD896024AAB327002B6B0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W7ULA4X9L6;
+				INFOPLIST_FILE = CoolCalcTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.abneyanalytics.CoolCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoolCalc.app/CoolCalc";
+			};
+			name = Debug;
+		};
+		B1BD896124AAB327002B6B0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W7ULA4X9L6;
+				INFOPLIST_FILE = CoolCalcTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.abneyanalytics.CoolCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoolCalc.app/CoolCalc";
+			};
+			name = Release;
+		};
 		B1D4568E24471B7E00431A47 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -363,6 +483,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B1BD896224AAB327002B6B0A /* Build configuration list for PBXNativeTarget "CoolCalcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1BD896024AAB327002B6B0A /* Debug */,
+				B1BD896124AAB327002B6B0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B1D4567724471B7D00431A47 /* Build configuration list for PBXProject "CoolCalc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
