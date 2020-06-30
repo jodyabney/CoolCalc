@@ -1,5 +1,5 @@
 //
-//  CoolCalcTests.swift
+//  CoolCalcBrainTests.swift
 //  CoolCalcTests
 //
 //  Created by Jody Abney on 6/29/20.

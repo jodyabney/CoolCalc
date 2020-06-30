@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B145E9D8244948350091DBD8 /* CoolCalcVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145E9D7244948350091DBD8 /* CoolCalcVC.swift */; };
 		B145E9DA244A95260091DBD8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145E9D9244A95260091DBD8 /* RoundedButton.swift */; };
-		B1BD895C24AAB327002B6B0A /* CoolCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BD895B24AAB327002B6B0A /* CoolCalcTests.swift */; };
+		B1BD895C24AAB327002B6B0A /* CoolCalcBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BD895B24AAB327002B6B0A /* CoolCalcBrainTests.swift */; };
 		B1D4568024471B7D00431A47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4567F24471B7D00431A47 /* AppDelegate.swift */; };
 		B1D4568224471B7D00431A47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4568124471B7D00431A47 /* SceneDelegate.swift */; };
 		B1D4568724471B7D00431A47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1D4568524471B7D00431A47 /* Main.storyboard */; };
@@ -35,7 +35,7 @@
 		B145E9D7244948350091DBD8 /* CoolCalcVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolCalcVC.swift; sourceTree = "<group>"; };
 		B145E9D9244A95260091DBD8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		B1BD895924AAB327002B6B0A /* CoolCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoolCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1BD895B24AAB327002B6B0A /* CoolCalcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolCalcTests.swift; sourceTree = "<group>"; };
+		B1BD895B24AAB327002B6B0A /* CoolCalcBrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolCalcBrainTests.swift; sourceTree = "<group>"; };
 		B1BD895D24AAB327002B6B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1D4567C24471B7D00431A47 /* CoolCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D4567F24471B7D00431A47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		B1BD895A24AAB327002B6B0A /* CoolCalcTests */ = {
 			isa = PBXGroup;
 			children = (
-				B1BD895B24AAB327002B6B0A /* CoolCalcTests.swift */,
+				B1BD895B24AAB327002B6B0A /* CoolCalcBrainTests.swift */,
 				B1BD895D24AAB327002B6B0A /* Info.plist */,
 			);
 			path = CoolCalcTests;
@@ -239,7 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1BD895C24AAB327002B6B0A /* CoolCalcTests.swift in Sources */,
+				B1BD895C24AAB327002B6B0A /* CoolCalcBrainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
